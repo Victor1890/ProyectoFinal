@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.example.proyectofinal.DATA.GetMoviePopulary;
+import com.example.proyectofinal.DATA.MoviePopulary;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -17,6 +20,11 @@ public class MainActivity extends AppCompatActivity {
 
     TextView txt1;
 
+    String URL_BASE = "https://api.themoviedb.org";
+    int PAGE = 1;
+    String KEY = "54ab07c73593d2ae04ed17bde50c990a";
+    String LANGUAGE = "en-US";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +32,24 @@ public class MainActivity extends AppCompatActivity {
 
         txt1 = findViewById(R.id.txt1);
 
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(URL_BASE)
+                .addConverterFactory(GsonConverterFactory.create()).build();
+        GetMoviePopulary getMoviePopulary = retrofit.create(GetMoviePopulary.class);
 
+        Call<MoviePopulary> call = getMoviePopulary.getMovie("popular",KEY,LANGUAGE,PAGE);
+        call.enqueue(new Callback<MoviePopulary>() {
+            @Override
+            public void onResponse(Call<MoviePopulary> call, Response<MoviePopulary> response) {
+                MoviePopulary results = response.body();
+                List<MoviePopulary.ResultsBean> listOfMovie = results.getResults();
+                MoviePopulary.ResultsBean hola = listOfMovie.get(0);
+                txt1.setText(hola.getTitle());
+            }
+
+            @Override
+            public void onFailure(Call<MoviePopulary> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 }
