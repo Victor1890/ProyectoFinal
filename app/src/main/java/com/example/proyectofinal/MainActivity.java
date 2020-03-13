@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txt1 = findViewById(R.id.txt1);
+
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(URL_BASE)
                 .addConverterFactory(GsonConverterFactory.create()).build();

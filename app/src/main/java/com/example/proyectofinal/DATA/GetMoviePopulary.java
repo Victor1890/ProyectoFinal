@@ -8,7 +8,6 @@ import retrofit2.http.Query;
 public interface GetMoviePopulary {
     @GET("/3/movie/{category}")
     Call<MoviePopulary> getMovie(
-
             @Path("category") String category,
             @Query("api_key") String apikey,
             @Query("language") String language,
