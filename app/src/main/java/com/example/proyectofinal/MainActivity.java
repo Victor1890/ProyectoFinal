@@ -4,11 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.proyectofinal.API.Client;
 import com.example.proyectofinal.API.Service;
 import com.example.proyectofinal.Adapter.MovieAdapter;
+import com.example.proyectofinal.Layout.Busqueda;
 import com.example.proyectofinal.Model.Movie;
 import com.example.proyectofinal.Model.MovieResponse;
 
@@ -30,21 +35,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        TextView popular = findViewById(R.id.seccion);
+        popular.setText("Popular");
         final RecyclerView recyclerView = findViewById(R.id.recyclerView);
-
-
+        final Intent seaintent = new Intent(MainActivity.this, Busqueda.class);
+        final ImageButton search = findViewById(R.id.buscador);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(seaintent);
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, true));
 
-        /*test.add(new Test("",""));
-        test.add(new Test("",""));
-        test.add(new Test("",""));
-        test.add(new Test("",""));
-        test.add(new Test("",""));
-
-        AdaptadorDatos adaptadorDatos = new AdaptadorDatos(test);
-        recyclerView.setAdapter(adaptadorDatos);
-        */
 
         Client client = new Client();
         Service service = Client.getRetrofit().create(Service.class);
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
     }
