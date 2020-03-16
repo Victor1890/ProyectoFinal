@@ -1,69 +1,65 @@
 package com.example.proyectofinal.Adapter;
 
+
 import android.content.Context;
-import android.content.Intent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
 import com.example.proyectofinal.Model.Movie;
 import com.example.proyectofinal.R;
+import com.squareup.picasso.Picasso;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder> {
+public class MovieAdapter extends BaseAdapter{
+    public static final String MOVIE_BASE_URL="https://image.tmdb.org/t/p/w185";
+    private Context mContext;
+    ArrayList<Movie> list;
 
-    private Context context;
-    private List<Movie> movieList;
-
-    public MovieAdapter(Context context, List<Movie> movieList){
-        this.context = context;
-        this.movieList = movieList;
+    public MovieAdapter(Context context, ArrayList<Movie> movieList) {
+        this.mContext = context;
+        this.list = movieList;
     }
-
-    @NonNull
     @Override
-    public MovieAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_popular_items, parent, false);
-        return new MyViewHolder(v);
+    public int getCount() {
+        return list.size();
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieAdapter.MyViewHolder holder, int position) {
-        Glide.with(context).load(movieList.get(position).getPoster_path())
-                .placeholder(R.drawable.ic_launcher_background)
-                .into(holder.imageView);
+    public Object getItem(int position) {
+        return list.get(position);
     }
 
     @Override
-    public int getItemCount() {
-        return movieList.size();
+    public long getItemId(int position) {
+        return position;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-
-        public ImageView imageView;
-
-        public MyViewHolder(@NonNull View v) {
-            super(v);
-            imageView = v.findViewById(R.id.imageView);
-
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int pos = getAdapterPosition();
-                    if(pos != RecyclerView.NO_POSITION){
-                        Movie clickDataItems = movieList.get(pos);
-                        Toast.makeText(context,"Funciona",Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ImageView imageView;
+        Movie movies = (Movie) getItem(position);
+        RelativeLayout relativeLayout = new RelativeLayout(mContext);
+        relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(200, 300));
+        if (convertView == null) {
+            // if it's not recycled, initialize some attributes
+            imageView = new ImageView(mContext);
+            imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            imageView.setAdjustViewBounds(true);
+            relativeLayout.addView(imageView);
+        } else {
+            imageView = (ImageView) convertView;
         }
+
+        //load data into the ImageView using Picasso
+        Picasso.get().load(MOVIE_BASE_URL + movies.getPosterPath())
+                .placeholder(R.drawable.image_placeholder)
+                .into(imageView);
+
+        return imageView;
     }
 }

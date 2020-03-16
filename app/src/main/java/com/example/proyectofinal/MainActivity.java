@@ -1,69 +1,84 @@
 package com.example.proyectofinal;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
-import com.example.proyectofinal.API.Client;
-import com.example.proyectofinal.API.Service;
+import com.example.proyectofinal.API.NetworkUtils;
 import com.example.proyectofinal.Adapter.MovieAdapter;
-import com.example.proyectofinal.Layout.Busqueda;
 import com.example.proyectofinal.Model.Movie;
-import com.example.proyectofinal.Model.MovieResponse;
 
-import java.util.List;
+import java.io.IOException;
+import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static com.example.proyectofinal.R.layout.activity_main;
 
 public class MainActivity extends AppCompatActivity {
-
-
-    String URL_BASE = "https://api.themoviedb.org";
-    int PAGE = 1;
-    String KEY = "54ab07c73593d2ae04ed17bde50c990a";
-    String LANGUAGE = "en-US";
+    @BindView(R.id.indeterminateBar) ProgressBar mProgressBar;
+    ArrayList<Movie> mPopularList;
+    ArrayList<Movie> mTopTopRatedList;
+    @BindView(R.id.pop_movies_grid) GridView pelis;
+    String KEY= "54ab07c73593d2ae04ed17bde50c990a";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        TextView popular = findViewById(R.id.seccion);
-        popular.setText("Popular");
-        final RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        final Intent seaintent = new Intent(MainActivity.this, Busqueda.class);
-        final ImageButton search = findViewById(R.id.buscador);
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(seaintent);
-            }
-        });
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, true));
+        setContentView(activity_main);
+        ButterKnife.bind(MainActivity.this);
+        mProgressBar.setVisibility(View.INVISIBLE);
+        FetchMovies FM = new FetchMovies();
+        FM.execute();
 
 
-        Client client = new Client();
-        Service service = Client.getRetrofit().create(Service.class);
-        Call<MovieResponse> call = service.getPopularMovie("54ab07c73593d2ae04ed17bde50c990a");
-        call.enqueue(new Callback<MovieResponse>() {
-            @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                List<Movie> movies = response.body().getResults();
-                recyclerView.setAdapter(new MovieAdapter(getApplicationContext(), movies));
-                recyclerView.smoothScrollToPosition(0);
-            }
 
-            @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
     }
+    public class FetchMovies extends AsyncTask<Void,Void,Void> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            mProgressBar.setVisibility(View.INVISIBLE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            String popularMovies;
+            String topRatedMovies;
+            popularMovies = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=54ab07c73593d2ae04ed17bde50c990a";
+            topRatedMovies = "http://api.themoviedb.org/3/discover/movie?sort_by=vote_average.desc&api_key=54ab07c73593d2ae04ed17bde50c990a";
+            mPopularList = new ArrayList<>();
+            mTopTopRatedList = new ArrayList<>();
+            try {
+                if(NetworkUtils.networkStatus(MainActivity.this)){
+                    mPopularList = NetworkUtils.fetchData(popularMovies); //Get popular movies
+                    MovieAdapter adapter = new MovieAdapter(MainActivity.this,mPopularList);
+                    pelis.setAdapter(adapter);
+                    mTopTopRatedList = NetworkUtils.fetchData(topRatedMovies); //Get top rated movies
+                }else{
+                    Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_LONG).show();
+                }
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
 }
