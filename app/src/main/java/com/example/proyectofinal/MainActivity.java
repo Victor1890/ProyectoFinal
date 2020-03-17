@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.indeterminateBar) ProgressBar mProgressBar;
     @BindView(R.id.pop_movies_grid) GridView pelis;
 
+
+
     private Utilidades util = Utilidades.getInstance();
 
     @Override
@@ -37,7 +40,19 @@ public class MainActivity extends AppCompatActivity {
         FetchMovies FM = new FetchMovies();
         FM.execute();
 
+        /*btnBuscador.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this,"Funciona", Toast.LENGTH_LONG).show();
+            }
+        });*/
+
     }
+
+    public void test(View v){
+        Toast.makeText(MainActivity.this,"Funciona", Toast.LENGTH_LONG).show();
+    }
+
     public class FetchMovies extends AsyncTask<Void,Void,Void> {
         @Override
         protected void onPreExecute() {
