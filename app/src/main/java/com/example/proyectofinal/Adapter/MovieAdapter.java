@@ -17,7 +17,8 @@ import java.util.ArrayList;
 public class MovieAdapter extends BaseAdapter{
     public static final String MOVIE_BASE_URL="https://image.tmdb.org/t/p/w185";
     private Context mContext;
-    ArrayList<Movie> list;
+    public ArrayList<Movie> list;
+    public ImageView imageView;
 
     public MovieAdapter(Context context, ArrayList<Movie> movieList) {
         this.mContext = context;
@@ -40,26 +41,30 @@ public class MovieAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
-        Movie movies = (Movie) getItem(position);
-        RelativeLayout relativeLayout = new RelativeLayout(mContext);
-        relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(200, 300));
-        if (convertView == null) {
-            // if it's not recycled, initialize some attributes
-            imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            imageView.setAdjustViewBounds(true);
-            relativeLayout.addView(imageView);
-        } else {
-            imageView = (ImageView) convertView;
+        try{
+            Movie movies = (Movie) getItem(position);
+            RelativeLayout relativeLayout = new RelativeLayout(mContext);
+            relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(200, 300));
+            if (convertView == null) {
+                // if it's not recycled, initialize some attributes
+                imageView = new ImageView(mContext);
+                imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                imageView.setAdjustViewBounds(true);
+                relativeLayout.addView(imageView);
+            } else {
+                imageView = (ImageView) convertView;
+            }
+
+            //load data into the ImageView using Picasso
+            Picasso.get().load(MOVIE_BASE_URL + movies.getPosterPath())
+                    .placeholder(R.drawable.image_placeholder)
+                    .into(imageView);
+
         }
-
-        //load data into the ImageView using Picasso
-        Picasso.get().load(MOVIE_BASE_URL + movies.getPosterPath())
-                .placeholder(R.drawable.image_placeholder)
-                .into(imageView);
-
+        catch (Exception e){
+            e.printStackTrace();
+        }
         return imageView;
     }
 }
