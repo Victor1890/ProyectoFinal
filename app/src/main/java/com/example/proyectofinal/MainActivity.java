@@ -15,7 +15,9 @@ import android.widget.Toast;
 import com.example.proyectofinal.API.NetworkUtils;
 import com.example.proyectofinal.API.Utilidades;
 import com.example.proyectofinal.Adapter.MovieAdapter;
+import com.example.proyectofinal.Layout.Busqueda;
 import com.example.proyectofinal.Model.Movie;
+import com.example.proyectofinal.Model.MovieTrailer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,17 +28,22 @@ import butterknife.ButterKnife;
 import static com.example.proyectofinal.R.layout.activity_main;
 
 public class MainActivity extends AppCompatActivity {
-    @BindView(R.id.indeterminateBar) ProgressBar mProgressBar;
-    @BindView(R.id.pop_movies_grid) GridView pelis;
+    @BindView(R.id.indeterminateBar)
+    ProgressBar mProgressBar;
+    @BindView(R.id.pop_movies_grid)
+    GridView pelis;
 
 
-
+    private Intent intent;
     private Utilidades util = Utilidades.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_main);
+        mProgressBar = findViewById(R.id.indeterminateBar);
+        pelis = findViewById(R.id.pop_movies_grid);
+
         ButterKnife.bind(MainActivity.this);
         mProgressBar.setVisibility(View.INVISIBLE);
 
@@ -46,23 +53,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Movie peliselect = (Movie) adapterView.getAdapter().getItem(position);
+                //MovieTrailer trailer = (MovieTrailer) adapterView.getAdapter().getItem(position);
                 Intent intentdetails = new Intent(MainActivity.this,MovieDetalles.class);
                 intentdetails.putExtra("detalles", peliselect);
+                //intentdetails.putExtra("trailer", trailer);
                 startActivity(intentdetails);
             }
         });
-
-        /*btnBuscador.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this,"Funciona", Toast.LENGTH_LONG).show();
-            }
-        });*/
-
     }
 
     public void test(View v){
         Toast.makeText(MainActivity.this,"Funciona", Toast.LENGTH_LONG).show();
+        intent = new Intent(MainActivity.this, Busqueda.class);
+        startActivity(intent);
     }
 
     public class FetchMovies extends AsyncTask<Void,Void,Void> {
