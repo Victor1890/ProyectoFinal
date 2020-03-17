@@ -2,9 +2,11 @@ package com.example.proyectofinal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ProgressBar;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import com.example.proyectofinal.API.NetworkUtils;
 import com.example.proyectofinal.API.Utilidades;
 import com.example.proyectofinal.Adapter.MovieAdapter;
+import com.example.proyectofinal.Model.Movie;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,6 +42,15 @@ public class MainActivity extends AppCompatActivity {
 
         FetchMovies FM = new FetchMovies();
         FM.execute();
+        pelis.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Movie peliselect = (Movie) adapterView.getAdapter().getItem(position);
+                Intent intentdetails = new Intent(MainActivity.this,MovieDetalles.class);
+                intentdetails.putExtra("detalles", peliselect);
+                startActivity(intentdetails);
+            }
+        });
 
         /*btnBuscador.setOnClickListener(new View.OnClickListener() {
             @Override

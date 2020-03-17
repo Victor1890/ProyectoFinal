@@ -1,27 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBase"
-    android:gravity="center"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:gravity="top"
+    android:orientation="vertical">
 
-    <com.master.glideimageview.GlideImageView
-        android:id="@+id/glide"
-        android:layout_width="128dp"
-        android:layout_height="189dp"
-        android:src="@drawable/ic_launcher_background"/>
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/image_placeholder" />
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="128dp"
-        android:layout_height="189dp"
-        app:cardCornerRadius="7dp">
+    <TextView
+        android:id="@+id/MovieName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="24sp"
+        tools:text="MovieName" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_launcher_background" />
-    </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Sinopsis de la pelicula"
+        android:textColor="@color/colorWhite"
+        android:textSize="24sp" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/sinopsis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        tools:text="Synopsis" />
+</LinearLayout>

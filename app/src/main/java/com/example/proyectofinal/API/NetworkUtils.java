@@ -72,7 +72,7 @@ public class NetworkUtils {
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.e(TAG, "Error occurred during JSON Parsing", e);
+            Log.e(TAG, "Ocurrio un error en el Parsing de JSON", e);
         }
 
     }
