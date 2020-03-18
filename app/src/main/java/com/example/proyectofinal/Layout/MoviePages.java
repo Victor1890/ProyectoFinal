@@ -1,4 +1,4 @@
-package com.example.proyectofinal;
+package com.example.proyectofinal.Layout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,9 +14,10 @@ import android.widget.Toast;
 import com.example.proyectofinal.API.NetworkUtils;
 import com.example.proyectofinal.API.Utilidades;
 import com.example.proyectofinal.Adapter.MovieAdapter;
-import com.example.proyectofinal.Layout.Busqueda;
-import com.example.proyectofinal.Layout.MoviePages;
+import com.example.proyectofinal.MainActivity;
 import com.example.proyectofinal.Model.Movie;
+import com.example.proyectofinal.MovieDetalles;
+import com.example.proyectofinal.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,14 +25,13 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.proyectofinal.R.layout.activity_main;
+public class MoviePages extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity {
-    @BindView(R.id.indeterminateBar)
-    ProgressBar mProgressBar;
-    @BindView(R.id.pop_movies_grid)
-    GridView pelis;
+    @BindView(R.id.progressbar2)
+    ProgressBar progressBar2;
 
+    @BindView(R.id.pop_movies_grid2)
+    GridView pelis2;
 
     private Intent intent;
     private Utilidades util = Utilidades.getInstance();
@@ -39,21 +39,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(activity_main);
-        mProgressBar = findViewById(R.id.indeterminateBar);
-        pelis = findViewById(R.id.pop_movies_grid);
-
-        ButterKnife.bind(MainActivity.this);
-        mProgressBar.setVisibility(View.INVISIBLE);
+        setContentView(R.layout.activity_movie_pages);
+        progressBar2.setVisibility(View.INVISIBLE);
+        ButterKnife.bind(MoviePages.this);
 
         FetchMovies FM = new FetchMovies();
         FM.execute();
-        pelis.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        pelis2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Movie peliselect = (Movie) adapterView.getAdapter().getItem(position);
                 //MovieTrailer trailer = (MovieTrailer) adapterView.getAdapter().getItem(position);
-                Intent intentdetails = new Intent(MainActivity.this,MovieDetalles.class);
+                Intent intentdetails = new Intent(MoviePages.this, MovieDetalles.class);
                 intentdetails.putExtra("detalles", peliselect);
                 //intentdetails.putExtra("trailer", trailer);
                 startActivity(intentdetails);
@@ -61,22 +59,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void test(View v){
-        intent = new Intent(MainActivity.this, MoviePages.class);
-        startActivity(intent);
-    }
-
     public class FetchMovies extends AsyncTask<Void,Void,Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mProgressBar.setVisibility(View.VISIBLE);
+            progressBar2.setVisibility(View.VISIBLE);
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            mProgressBar.setVisibility(View.INVISIBLE);
+            progressBar2.setVisibility(View.INVISIBLE);
         }
 
         @Override
@@ -84,13 +77,13 @@ public class MainActivity extends AppCompatActivity {
             util.mPopularList = new ArrayList<>();
             util.mTopTopRatedList = new ArrayList<>();
             try {
-                if(NetworkUtils.networkStatus(MainActivity.this)){
+                if(NetworkUtils.networkStatus(MoviePages.this)){
                     util.mPopularList = NetworkUtils.fetchData(util.popularMovies); //Get popular movies
-                    MovieAdapter adapter = new MovieAdapter(MainActivity.this,util.mPopularList);
-                    //pelis.setAdapter(adapter);
+                    MovieAdapter adapter = new MovieAdapter(MoviePages.this,util.mPopularList);
+                    pelis2.setAdapter(adapter);
                     util.mTopTopRatedList = NetworkUtils.fetchData(util.topRatedMovies); //Get top rated movies
                 }else{
-                    Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MoviePages.this,"No Internet Connection",Toast.LENGTH_LONG).show();
                 }
             } catch (IOException e){
                 e.printStackTrace();

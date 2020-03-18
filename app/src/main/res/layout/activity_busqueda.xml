@@ -17,17 +17,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#20FFFFFF"
+            android:queryHint="@string/app_name"
             android:scrollbarStyle="insideInset" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/linearLayout1"
         android:background="#51201B1B"
         android:orientation="horizontal"
         android:paddingTop="20dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"/>
 
     </LinearLayout>
 
