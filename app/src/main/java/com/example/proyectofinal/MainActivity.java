@@ -11,6 +11,7 @@ import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.proyectofinal.API.FetchMovies;
 import com.example.proyectofinal.API.NetworkUtils;
 import com.example.proyectofinal.API.Utilidades;
 import com.example.proyectofinal.Adapter.MovieAdapter;
@@ -46,8 +47,9 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(MainActivity.this);
         mProgressBar.setVisibility(View.INVISIBLE);
 
-        FetchMovies FM = new FetchMovies();
+        FetchMovies FM = new FetchMovies(this,mProgressBar,pelis);
         FM.execute();
+
         pelis.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -64,38 +66,5 @@ public class MainActivity extends AppCompatActivity {
     public void test(View v){
         intent = new Intent(MainActivity.this, MoviePages.class);
         startActivity(intent);
-    }
-
-    public class FetchMovies extends AsyncTask<Void,Void,Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mProgressBar.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            mProgressBar.setVisibility(View.INVISIBLE);
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            util.mPopularList = new ArrayList<>();
-            util.mTopTopRatedList = new ArrayList<>();
-            try {
-                if(NetworkUtils.networkStatus(MainActivity.this)){
-                    util.mPopularList = NetworkUtils.fetchData(util.popularMovies); //Get popular movies
-                    MovieAdapter adapter = new MovieAdapter(MainActivity.this,util.mPopularList);
-                    //pelis.setAdapter(adapter);
-                    util.mTopTopRatedList = NetworkUtils.fetchData(util.topRatedMovies); //Get top rated movies
-                }else{
-                    Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_LONG).show();
-                }
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-            return null;
-        }
     }
 }

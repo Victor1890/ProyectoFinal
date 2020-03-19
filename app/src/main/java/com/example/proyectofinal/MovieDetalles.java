@@ -19,6 +19,7 @@ public class MovieDetalles extends AppCompatActivity {
 
     TextView title,sinopsis;
     ImageView photo;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

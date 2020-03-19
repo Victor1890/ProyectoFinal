@@ -2,6 +2,7 @@ package com.example.proyectofinal.Adapter;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -41,7 +42,8 @@ public class MovieAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
+
+        ImageView imageView = null;
         Movie movies = (Movie) getItem(position);
         RelativeLayout relativeLayout = new RelativeLayout(mContext);
         relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(200, 300));
@@ -60,7 +62,6 @@ public class MovieAdapter extends BaseAdapter{
         Picasso.get().load(MOVIE_BASE_URL + movies.getPosterPath())
                 .placeholder(R.drawable.image_placeholder)
                 .into(imageView);
-
         return imageView;
     }
 }
