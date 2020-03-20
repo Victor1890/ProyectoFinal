@@ -15,9 +15,9 @@ import com.squareup.picasso.Picasso;
 
 public class MovieDetalles extends AppCompatActivity {
     private static final String TAG = MovieDetalles.class.getSimpleName();
-    public static final String BASE_URL = "https://image.tmdb.org/t/p/w185";
+    public static final String BASE_URL = "https://image.tmdb.org/t/p/w500";
 
-    TextView title,sinopsis;
+    TextView title, sinopsis, rating;
     ImageView photo;
 
     @Override
@@ -32,9 +32,13 @@ public class MovieDetalles extends AppCompatActivity {
         photo = findViewById(R.id.photo);
 
         Picasso.get().load(BASE_URL + mov_intent.getPosterPath()).into(photo);
+
         title = findViewById(R.id.MovieName);
         sinopsis = findViewById(R.id.sinopsis);
+        rating = findViewById(R.id.MovieRating);
+
         title.setText(mov_intent.getTitle());
         sinopsis.setText(mov_intent.getOverview());
+        //rating.setText(mov_intent.getVoteCount());
     }
 }

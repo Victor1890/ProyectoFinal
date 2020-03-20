@@ -8,7 +8,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.proyectofinal.Adapter.MovieAdapter;
-import com.example.proyectofinal.Layout.MoviePages;
 
 import java.util.ArrayList;
 

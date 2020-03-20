@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class MovieAdapter extends BaseAdapter{
-    public static final String MOVIE_BASE_URL="https://image.tmdb.org/t/p/w185";
+    public static final String MOVIE_BASE_URL="https://image.tmdb.org/t/p/w500";
     private Context mContext;
     public ArrayList<Movie> list;
     //public ImageView imageView;
@@ -27,7 +27,7 @@ public class MovieAdapter extends BaseAdapter{
     }
     @Override
     public int getCount() {
-        return list.size();
+        return (list.size() + 100) / (list.size() + 10);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class MovieAdapter extends BaseAdapter{
         ImageView imageView = null;
         Movie movies = (Movie) getItem(position);
         RelativeLayout relativeLayout = new RelativeLayout(mContext);
-        relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(200, 300));
+        relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(100, 200));
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);

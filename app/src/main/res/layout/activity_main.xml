@@ -99,7 +99,7 @@
             android:layout_height="match_parent"
             android:columnWidth="@dimen/grid_col_width"
             android:gravity="center_horizontal"
-            android:numColumns="auto_fit"
+            android:numColumns="3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
