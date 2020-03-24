@@ -63,4 +63,5 @@
             android:textSize="15sp"
             tools:text="Synopsis" />
     </LinearLayout>
+
 </ScrollView>

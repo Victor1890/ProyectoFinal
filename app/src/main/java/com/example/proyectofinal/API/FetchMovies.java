@@ -39,11 +39,10 @@ public class FetchMovies extends AsyncTask<Void,Void,Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        util.mPopularList = new ArrayList<>();
-        util.mTopTopRatedList = new ArrayList<>();
         try {
             if(NetworkUtils.networkStatus(context)){
                 util.mPopularList = NetworkUtils.fetchData(util.popularMovies); //Get popular movies
+                util.mReviews = NetworkUtils.fetchDataReviews(util.popularMovies); //Get popular movies
                 MovieAdapter adapter = new MovieAdapter(context,util.mPopularList);
                 gridView.setAdapter(adapter);
                 util.mTopTopRatedList = NetworkUtils.fetchData(util.topRatedMovies); //Get top rated movies
