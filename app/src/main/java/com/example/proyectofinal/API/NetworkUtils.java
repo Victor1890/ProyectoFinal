@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.proyectofinal.Model.Movie;
 import com.example.proyectofinal.Model.MovieTrailer;
+import com.example.proyectofinal.Model.Reviews;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -31,10 +32,9 @@ public class NetworkUtils {
         }
         return false;
     }
-    public static ArrayList<Movie> fetchData(String url) throws IOException {
-        ArrayList<Movie> movies = new ArrayList<>();
-        ArrayList<MovieTrailer> trailers = new ArrayList<>();
 
+    public static ArrayList<Movie> fetchData(String url){
+        ArrayList<Movie> movies = new ArrayList<>();
         try {
 
             URL new_url = new URL(url); //create a url from a String
@@ -44,7 +44,6 @@ public class NetworkUtils {
             InputStream inputStream = connection.getInputStream(); //reading from the object
             String results = IOUtils.toString(inputStream);  //IOUtils to convert inputstream objects into Strings type
             parseJson(results, movies);
-            //parseJsonTrailer(results, trailers);
             inputStream.close();
 
         } catch (IOException e) {
@@ -52,6 +51,23 @@ public class NetworkUtils {
         }
 
         return movies;
+    }
+
+    public static ArrayList<Reviews> fetchDataReviews(String url){
+        ArrayList<Reviews> reviews = new ArrayList<>();
+        try {
+            URL new_url = new URL(url); //create a url from a String
+            HttpURLConnection connection = (HttpURLConnection) new_url.openConnection(); //Opening a http connection  to the remote object
+            connection.connect();
+            InputStream inputStream = connection.getInputStream(); //reading from the object
+            String results = IOUtils.toString(inputStream);  //IOUtils to convert inputstream objects into Strings type
+            parseJsonReviews(results, reviews);
+            inputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return reviews;
     }
 
     public static void parseJsonTrailer(String data, ArrayList<MovieTrailer> listTrailer){
@@ -73,16 +89,40 @@ public class NetworkUtils {
         }
     }
 
+    public static void parseJsonReviews(String data, ArrayList<Reviews> list){
+        try{
+            JSONObject mainObject = new JSONObject(data);
+
+            Reviews reviews = new Reviews();
+            JSONArray resArray = mainObject.getJSONArray("results");
+
+            for(int i = 0; i < resArray.length(); i++){
+                JSONObject jsonObject = resArray.getJSONObject(i);
+
+                reviews.setAuthor(jsonObject.getString("author"));
+                reviews.setContent(jsonObject.getString("content"));
+                reviews.setId(jsonObject.getString("id"));
+                reviews.setUrl(jsonObject.getString("url"));
+
+                list.add(reviews);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            Log.e(TAG, "Ocurrio un error en el Parsing de JSON", e);
+        }
+    }
+
     public static void parseJson(String data, ArrayList<Movie> list){
 
         try {
             JSONObject mainObject = new JSONObject(data);
+            Movie movie = new Movie(); //New Movie object
 
             JSONArray resArray = mainObject.getJSONArray("results"); //Getting the results object
             for (int i = 0; i < resArray.length(); i++) {
                 JSONObject jsonObject = resArray.getJSONObject(i);
 
-                Movie movie = new Movie(); //New Movie object
 
                 movie.setId(jsonObject.getInt("id"));
                 movie.setVoteAverage(jsonObject.getInt("vote_average"));

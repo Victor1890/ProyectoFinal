@@ -11,6 +11,9 @@ public class Movie implements Serializable {
     private String title;
     private double popularity;
     private String backdropPath;
+    private String overview;
+    private String releaseDate;
+    private String posterPath;
 
     public int getId() {
         return id;
@@ -91,10 +94,4 @@ public class Movie implements Serializable {
     public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
     }
-
-    private String overview;
-    private String releaseDate;
-    private String posterPath;
-
-
 }

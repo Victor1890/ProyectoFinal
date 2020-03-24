@@ -2,7 +2,6 @@ package com.example.proyectofinal.Adapter;
 
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -19,7 +18,6 @@ public class MovieAdapter extends BaseAdapter{
     public static final String MOVIE_BASE_URL="https://image.tmdb.org/t/p/w500";
     private Context mContext;
     public ArrayList<Movie> list;
-    //public ImageView imageView;
 
     public MovieAdapter(Context context, ArrayList<Movie> movieList) {
         this.mContext = context;
@@ -50,7 +48,7 @@ public class MovieAdapter extends BaseAdapter{
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setAdjustViewBounds(true);
             relativeLayout.addView(imageView);
