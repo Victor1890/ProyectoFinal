@@ -1,6 +1,5 @@
 package com.example.proyectofinal.Adapter;
 
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,26 +8,26 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.example.proyectofinal.API.Utilidades;
-import com.example.proyectofinal.Model.Movie;
+import com.example.proyectofinal.Model.Search;
 import com.example.proyectofinal.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class MovieAdapter extends BaseAdapter{
+public class MovieSearchAdapter extends BaseAdapter {
 
     private Utilidades util = Utilidades.getInstance();
+    private List<Search> list;
+    private Context context;
 
-    private Context mContext;
-    public ArrayList<Movie> list;
-
-    public MovieAdapter(Context context, ArrayList<Movie> movieList) {
-        this.mContext = context;
-        this.list = movieList;
+    public MovieSearchAdapter(Context context,List<Search> list) {
+        this.list = list;
+        this.context = context;
     }
+
     @Override
     public int getCount() {
-        return (list.size() + 100) / (list.size() + 10);
+        return list.size();
     }
 
     @Override
@@ -42,25 +41,24 @@ public class MovieAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
+    public View getView(int position, View view, ViewGroup viewGroup) {
         ImageView imageView = null;
-        Movie movies = (Movie) getItem(position);
-        RelativeLayout relativeLayout = new RelativeLayout(mContext);
+        Search search = (Search) getItem(position);
+        RelativeLayout relativeLayout = new RelativeLayout(context);
         relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(100, 200));
-        if (convertView == null) {
+        if (view == null) {
             // if it's not recycled, initialize some attributes
-            imageView = new ImageView(mContext);
+            imageView = new ImageView(context);
             imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setAdjustViewBounds(true);
             relativeLayout.addView(imageView);
         } else {
-            imageView = (ImageView) convertView;
+            imageView = (ImageView) view;
         }
 
         //load data into the ImageView using Picasso
-        Picasso.get().load(util.MOVIE_BASE_URL + movies.getPosterPath())
+        Picasso.get().load(util.MOVIE_BASE_URL + search.getPoster_path())
                 .placeholder(R.drawable.image_placeholder)
                 .into(imageView);
         return imageView;

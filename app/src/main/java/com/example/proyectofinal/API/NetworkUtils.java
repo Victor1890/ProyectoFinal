@@ -8,6 +8,7 @@ import android.util.Log;
 import com.example.proyectofinal.Model.Movie;
 import com.example.proyectofinal.Model.MovieTrailer;
 import com.example.proyectofinal.Model.Reviews;
+import com.example.proyectofinal.Model.Search;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -53,6 +54,25 @@ public class NetworkUtils {
         return movies;
     }
 
+    public static ArrayList<Search> fetchDataSearch(String url){
+        ArrayList<Search> searches = new ArrayList<>();
+        try {
+            URL new_url = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) new_url.openConnection();
+            connection.connect();
+            InputStream inputStream = connection.getInputStream();
+            String result = IOUtils.toString(inputStream);
+
+            parseJsonSearch(result,searches);
+
+            inputStream.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return searches;
+    }
+
     public static ArrayList<Reviews> fetchDataReviews(String url){
         ArrayList<Reviews> reviews = new ArrayList<>();
         try {
@@ -70,20 +90,23 @@ public class NetworkUtils {
         return reviews;
     }
 
-    public static void parseJsonTrailer(String data, ArrayList<MovieTrailer> listTrailer){
-        try{
+    public static void parseJsonSearch(String data, ArrayList<Search> list){
+        try {
             JSONObject mainObject = new JSONObject(data);
-            JSONArray resArray = mainObject.getJSONArray("results"); //Getting the results object
+            Search search = new Search();
+            JSONArray resArray = mainObject.getJSONArray("results");
+
             for (int i = 0; i < resArray.length(); i++) {
                 JSONObject jsonObject = resArray.getJSONObject(i);
-                MovieTrailer trailer = new MovieTrailer(); //New MovieTrailer object
 
-                trailer.setId(jsonObject.getString("id"));
-                trailer.setKey(jsonObject.getString("key"));
-                listTrailer.add(trailer);
+                search.setPoster_path(jsonObject.getString("poster_path"));
+                search.setTitle(jsonObject.getString("title"));
+                search.setVote_average(jsonObject.getDouble("vote_average"));
+                search.setId(jsonObject.getInt("id"));
+                list.add(search);
             }
         }
-        catch (JSONException e){
+        catch (Exception e){
             e.printStackTrace();
             Log.e(TAG, "Ocurrio un error en el Parsing de JSON", e);
         }
@@ -122,7 +145,6 @@ public class NetworkUtils {
             JSONArray resArray = mainObject.getJSONArray("results"); //Getting the results object
             for (int i = 0; i < resArray.length(); i++) {
                 JSONObject jsonObject = resArray.getJSONObject(i);
-
 
                 movie.setId(jsonObject.getInt("id"));
                 movie.setVoteAverage(jsonObject.getInt("vote_average"));

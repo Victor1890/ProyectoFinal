@@ -2,6 +2,7 @@ package com.example.proyectofinal.API;
 
 import com.example.proyectofinal.Model.Movie;
 import com.example.proyectofinal.Model.Reviews;
+import com.example.proyectofinal.Model.Search;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ public class Utilidades {
     public ArrayList<Movie> mPopularList = new ArrayList<>();;
     public ArrayList<Movie> mTopTopRatedList = new ArrayList<>();;
     public ArrayList<Reviews> mReviews = new ArrayList<>();
+    public ArrayList<Search> searches = new ArrayList<>();
 
     public final String MOVIE_BASE_URL="https://image.tmdb.org/t/p/w500";
     public static String BASE_URL = "http://api.themoviedb.org/3/";
