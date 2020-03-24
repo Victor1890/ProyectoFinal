@@ -53,15 +53,17 @@
                 android:textColor="@color/colorWhite"
                 android:textSize="24sp"
                 tools:text="MovieName" />
+
+            <TextView
+                android:id="@+id/sinopsis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                tools:text="Synopsis" />
         </LinearLayout>
-        <TextView
-            android:id="@+id/sinopsis"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/colorWhite"
-            android:textSize="15sp"
-            tools:text="Synopsis" />
+
     </LinearLayout>
 
 </ScrollView>
