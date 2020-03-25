@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Movie implements Serializable {
     private int id;
-    private  int voteAverage;
+    private Double voteAverage;
     private int voteCount;
     private String originalTitle;
     private String title;
@@ -23,11 +23,11 @@ public class Movie implements Serializable {
         this.id = id;
     }
 
-    public int getVoteAverage() {
+    public Double getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(int voteAverage) {
+    public void setVoteAverage(Double voteAverage) {
         this.voteAverage = voteAverage;
     }
 
