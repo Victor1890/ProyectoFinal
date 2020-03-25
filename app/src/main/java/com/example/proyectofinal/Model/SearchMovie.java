@@ -2,7 +2,7 @@ package com.example.proyectofinal.Model;
 
 import java.util.List;
 
-public class Search {
+public class SearchMovie {
 
     private double popularity;
     private int vote_count;

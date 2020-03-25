@@ -15,8 +15,10 @@ public class FetchMoviesSearch extends AsyncTask<Void,Void,Void> {
     private ProgressBar progressBar;
     private Context context;
     private GridView gridView;
+    private String search;
 
-    public FetchMoviesSearch(Context context, ProgressBar progressBar, GridView gridView) {
+    public FetchMoviesSearch(Context context, ProgressBar progressBar, GridView gridView, String search) {
+        this.search = search;
         this.progressBar = progressBar;
         this.context = context;
         this.gridView = gridView;
@@ -26,20 +28,22 @@ public class FetchMoviesSearch extends AsyncTask<Void,Void,Void> {
     protected void onPreExecute() {
         super.onPreExecute();
         progressBar.setVisibility(View.VISIBLE);
+        gridView.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         progressBar.setVisibility(View.INVISIBLE);
+        gridView.setVisibility(View.INVISIBLE);
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
         try {
             if(NetworkUtils.networkStatus(context)){
-                util.searches = NetworkUtils.fetchDataSearch("");
-                MovieSearchAdapter adapter = new MovieSearchAdapter(context,util.searches);
+                util.searchMovies = NetworkUtils.fetchDataSearch(util.parametros(search));
+                MovieSearchAdapter adapter = new MovieSearchAdapter(context,util.searchMovies);
                 gridView.setAdapter(adapter);
                 util.mTopTopRatedList = NetworkUtils.fetchData(util.topRatedMovies); //Get top rated movies
             }else{

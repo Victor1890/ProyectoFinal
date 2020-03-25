@@ -6,9 +6,8 @@ import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.example.proyectofinal.Model.Movie;
-import com.example.proyectofinal.Model.MovieTrailer;
 import com.example.proyectofinal.Model.Reviews;
-import com.example.proyectofinal.Model.Search;
+import com.example.proyectofinal.Model.SearchMovie;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -54,8 +53,8 @@ public class NetworkUtils {
         return movies;
     }
 
-    public static ArrayList<Search> fetchDataSearch(String url){
-        ArrayList<Search> searches = new ArrayList<>();
+    public static ArrayList<SearchMovie> fetchDataSearch(String url){
+        ArrayList<SearchMovie> searchMovies = new ArrayList<>();
         try {
             URL new_url = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) new_url.openConnection();
@@ -63,14 +62,14 @@ public class NetworkUtils {
             InputStream inputStream = connection.getInputStream();
             String result = IOUtils.toString(inputStream);
 
-            parseJsonSearch(result,searches);
+            parseJsonSearch(result, searchMovies);
 
             inputStream.close();
         }
         catch (Exception e){
             e.printStackTrace();
         }
-        return searches;
+        return searchMovies;
     }
 
     public static ArrayList<Reviews> fetchDataReviews(String url){
@@ -90,20 +89,20 @@ public class NetworkUtils {
         return reviews;
     }
 
-    public static void parseJsonSearch(String data, ArrayList<Search> list){
+    public static void parseJsonSearch(String data, ArrayList<SearchMovie> list){
         try {
             JSONObject mainObject = new JSONObject(data);
-            Search search = new Search();
+            SearchMovie searchMovie = new SearchMovie();
             JSONArray resArray = mainObject.getJSONArray("results");
 
             for (int i = 0; i < resArray.length(); i++) {
                 JSONObject jsonObject = resArray.getJSONObject(i);
 
-                search.setPoster_path(jsonObject.getString("poster_path"));
-                search.setTitle(jsonObject.getString("title"));
-                search.setVote_average(jsonObject.getDouble("vote_average"));
-                search.setId(jsonObject.getInt("id"));
-                list.add(search);
+                searchMovie.setPoster_path(jsonObject.getString("poster_path"));
+                searchMovie.setTitle(jsonObject.getString("title"));
+                searchMovie.setVote_average(jsonObject.getDouble("vote_average"));
+                searchMovie.setId(jsonObject.getInt("id"));
+                list.add(searchMovie);
             }
         }
         catch (Exception e){
@@ -137,14 +136,16 @@ public class NetworkUtils {
     }
 
     public static void parseJson(String data, ArrayList<Movie> list){
-
+        int count = 0;
         try {
             JSONObject mainObject = new JSONObject(data);
             Movie movie = new Movie(); //New Movie object
 
-            JSONArray resArray = mainObject.getJSONArray("results"); //Getting the results object
-            for (int i = 0; i < resArray.length(); i++) {
-                JSONObject jsonObject = resArray.getJSONObject(i);
+            JSONArray resArray = mainObject.getJSONArray("results");
+
+            while (resArray.length() <= 10){
+                count++;
+                JSONObject jsonObject = resArray.getJSONObject(count);
 
                 movie.setId(jsonObject.getInt("id"));
                 movie.setVoteAverage(jsonObject.getInt("vote_average"));
@@ -156,7 +157,6 @@ public class NetworkUtils {
                 movie.setOverview(jsonObject.getString("overview"));
                 movie.setPosterPath(jsonObject.getString("poster_path"));
 
-                //Adding a new movie object into ArrayList
                 list.add(movie);
             }
         } catch (JSONException e) {

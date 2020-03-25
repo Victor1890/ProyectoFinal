@@ -10,6 +10,7 @@ import android.widget.GridView;
 import android.widget.ProgressBar;
 import com.example.proyectofinal.API.FetchMovies;
 import com.example.proyectofinal.API.Utilidades;
+import com.example.proyectofinal.Layout.Busqueda;
 import com.example.proyectofinal.Layout.MoviePages;
 import com.example.proyectofinal.Model.Movie;
 
@@ -25,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.pop_movies_grid)
     GridView pelis;
 
-
-    private Intent intent;
     private Utilidades util = Utilidades.getInstance();
 
     @Override
@@ -46,17 +45,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Movie peliselect = (Movie) adapterView.getAdapter().getItem(position);
-                //MovieTrailer trailer = (MovieTrailer) adapterView.getAdapter().getItem(position);
                 Intent intentdetails = new Intent(MainActivity.this,MovieDetalles.class);
                 intentdetails.putExtra("detalles", peliselect);
-                //intentdetails.putExtra("trailer", trailer);
                 startActivity(intentdetails);
             }
         });
     }
 
     public void test(View v){
-        intent = new Intent(MainActivity.this, MoviePages.class);
+        Intent intent = new Intent(MainActivity.this, Busqueda.class);
         startActivity(intent);
     }
 }
