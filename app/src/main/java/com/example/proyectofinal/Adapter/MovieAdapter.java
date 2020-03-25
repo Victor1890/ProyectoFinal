@@ -58,8 +58,6 @@ public class MovieAdapter extends BaseAdapter{
         } else {
             imageView = (ImageView) convertView;
         }
-
-        //load data into the ImageView using Picasso
         Picasso.get().load(util.MOVIE_BASE_URL + movies.getPosterPath())
                 .placeholder(R.drawable.image_placeholder)
                 .into(imageView);

@@ -40,10 +40,10 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
-            android:paddingTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="5dp">
 
             <TextView
                 android:id="@+id/MovieRating"
@@ -62,6 +62,12 @@
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp"
                 tools:text="Synopsis" />
+
+            <ListView
+                android:id="@+id/listaderev"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
         </LinearLayout>
 
     </LinearLayout>

@@ -99,9 +99,10 @@
             android:id="@+id/pop_movies_grid"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
             android:columnWidth="@dimen/grid_col_width"
-            android:numColumns="3" />
+            android:numColumns="3"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteY="10dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -35,11 +35,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(activity_main);
         mProgressBar = findViewById(R.id.indeterminateBar);
         pelis = findViewById(R.id.pop_movies_grid);
-
         ButterKnife.bind(MainActivity.this);
         mProgressBar.setVisibility(View.INVISIBLE);
 
-        FetchMovies FM = new FetchMovies(this,mProgressBar,pelis);
+        FetchMovies FM = new FetchMovies(MainActivity.this,mProgressBar,pelis);
         FM.execute();
 
         pelis.setOnItemClickListener(new AdapterView.OnItemClickListener() {

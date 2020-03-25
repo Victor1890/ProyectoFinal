@@ -116,12 +116,12 @@ public class NetworkUtils {
         try{
             JSONObject mainObject = new JSONObject(data);
 
-            Reviews reviews = new Reviews();
+
             JSONArray resArray = mainObject.getJSONArray("results");
 
             for(int i = 0; i < resArray.length(); i++){
                 JSONObject jsonObject = resArray.getJSONObject(i);
-
+                Reviews reviews = new Reviews();
                 reviews.setAuthor(jsonObject.getString("author"));
                 reviews.setContent(jsonObject.getString("content"));
                 reviews.setId(jsonObject.getString("id"));
@@ -140,12 +140,13 @@ public class NetworkUtils {
 
         try {
             JSONObject mainObject = new JSONObject(data);
-            Movie movie = new Movie(); //New Movie object
 
             JSONArray resArray = mainObject.getJSONArray("results"); //Getting the results object
-            for (int i = 0; i < resArray.length(); i++) {
-                JSONObject jsonObject = resArray.getJSONObject(i);
+            for (int k = 0; k < resArray.length(); k++) {
+                JSONObject jsonObject = resArray.getJSONObject(k);
+                Movie movie = new Movie();
                 movie.setId(jsonObject.getInt("id"));
+                movie.setVoteAverage(jsonObject.getDouble("vote_average"));
                 movie.setVoteCount(jsonObject.getInt("vote_count"));
                 movie.setOriginalTitle(jsonObject.getString("original_title"));
                 movie.setTitle(jsonObject.getString("title"));
@@ -153,8 +154,6 @@ public class NetworkUtils {
                 movie.setBackdropPath(jsonObject.getString("backdrop_path"));
                 movie.setOverview(jsonObject.getString("overview"));
                 movie.setPosterPath(jsonObject.getString("poster_path"));
-                movie.setVoteAverage(jsonObject.getDouble("vote_average"));
-                //Adding a new movie object into ArrayList
                 list.add(movie);
             }
         } catch (JSONException e) {
