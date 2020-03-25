@@ -145,9 +145,7 @@ public class NetworkUtils {
             JSONArray resArray = mainObject.getJSONArray("results"); //Getting the results object
             for (int i = 0; i < resArray.length(); i++) {
                 JSONObject jsonObject = resArray.getJSONObject(i);
-
                 movie.setId(jsonObject.getInt("id"));
-                movie.setVoteAverage(jsonObject.getInt("vote_average"));
                 movie.setVoteCount(jsonObject.getInt("vote_count"));
                 movie.setOriginalTitle(jsonObject.getString("original_title"));
                 movie.setTitle(jsonObject.getString("title"));
@@ -155,7 +153,7 @@ public class NetworkUtils {
                 movie.setBackdropPath(jsonObject.getString("backdrop_path"));
                 movie.setOverview(jsonObject.getString("overview"));
                 movie.setPosterPath(jsonObject.getString("poster_path"));
-
+                movie.setVoteAverage(jsonObject.getDouble("vote_average"));
                 //Adding a new movie object into ArrayList
                 list.add(movie);
             }

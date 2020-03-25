@@ -41,11 +41,10 @@ public class FetchMovies extends AsyncTask<Void,Void,Void> {
     protected Void doInBackground(Void... voids) {
         try {
             if(NetworkUtils.networkStatus(context)){
-                util.mPopularList = NetworkUtils.fetchData(util.popularMovies); //Get popular movies
-                util.mReviews = NetworkUtils.fetchDataReviews(util.popularMovies)       ; //Get popular movies
+                util.mPopularList = NetworkUtils.fetchData(util.popularMovies);
+                util.mTopTopRatedList = NetworkUtils.fetchData(util.topRatedMovies);
                 MovieAdapter adapter = new MovieAdapter(context,util.mPopularList);
                 gridView.setAdapter(adapter);
-                util.mTopTopRatedList = NetworkUtils.fetchData(util.topRatedMovies); //Get top rated movies
             }else{
                 Toast.makeText(context,"No Internet Connection",Toast.LENGTH_LONG).show();
             }

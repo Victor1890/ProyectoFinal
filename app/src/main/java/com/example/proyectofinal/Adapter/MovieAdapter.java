@@ -28,7 +28,7 @@ public class MovieAdapter extends BaseAdapter{
     }
     @Override
     public int getCount() {
-        return (list.size() + 100) / (list.size() + 10);
+        return list.size();
     }
 
     @Override
@@ -47,13 +47,13 @@ public class MovieAdapter extends BaseAdapter{
         ImageView imageView = null;
         Movie movies = (Movie) getItem(position);
         RelativeLayout relativeLayout = new RelativeLayout(mContext);
-        relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(100, 200));
+        relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(200, 200));
         if (convertView == null) {
-            // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
             imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setAdjustViewBounds(true);
+            imageView.setPadding(3,3,3,3);
             relativeLayout.addView(imageView);
         } else {
             imageView = (ImageView) convertView;
