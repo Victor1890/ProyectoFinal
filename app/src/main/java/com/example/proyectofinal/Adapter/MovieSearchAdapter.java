@@ -16,6 +16,7 @@ import java.util.List;
 
 public class MovieSearchAdapter extends BaseAdapter {
 
+    public static final String MOVIE_BASE_URL="https://image.tmdb.org/t/p/w185";
     private Utilidades util = Utilidades.getInstance();
     private List<SearchMovie> list;
     private Context context;
@@ -58,7 +59,7 @@ public class MovieSearchAdapter extends BaseAdapter {
         }
 
         //load data into the ImageView using Picasso
-        Picasso.get().load(util.MOVIE_BASE_URL + searchMovie.getPoster_path())
+        Picasso.get().load(MOVIE_BASE_URL + searchMovie.getPoster_path())
                 .placeholder(R.drawable.image_placeholder)
                 .into(imageView);
         return imageView;

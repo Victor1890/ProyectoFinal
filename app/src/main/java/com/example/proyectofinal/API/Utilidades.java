@@ -23,6 +23,11 @@ public class Utilidades {
     public ArrayList<Reviews> mReviews = new ArrayList<>();
     public ArrayList<SearchMovie> searches = new ArrayList<>();
 
+    public String parametros(String _buscar){
+        String buscar = "";
+        return buscar;
+    }
+
     public final String MOVIE_BASE_URL="https://image.tmdb.org/t/p/w500";
     public String popularMovies = "https://api.themoviedb.org/3/movie/popular?api_key="+ API_KEY+"&language=en-US&page=1";
     public String topRatedMovies = "http://api.themoviedb.org/3/discover/movie?sort_by=vote_average.desc&api_key=" + API_KEY;

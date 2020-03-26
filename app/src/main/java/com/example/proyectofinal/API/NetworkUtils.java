@@ -89,7 +89,7 @@ public class NetworkUtils {
         return reviews;
     }
 
-    public static void parseJsonSearch(String data, ArrayList<SearchMovie> list){
+    private static void parseJsonSearch(String data, ArrayList<SearchMovie> list){
         try {
             JSONObject mainObject = new JSONObject(data);
             SearchMovie searchMovie = new SearchMovie();
@@ -111,7 +111,7 @@ public class NetworkUtils {
         }
     }
 
-    public static void parseJsonReviews(String data, ArrayList<Reviews> list){
+    private static void parseJsonReviews(String data, ArrayList<Reviews> list){
         try{
             JSONObject mainObject = new JSONObject(data);
 
@@ -135,20 +135,19 @@ public class NetworkUtils {
         }
     }
 
-    public static void parseJson(String data, ArrayList<Movie> list){
+    private static void parseJson(String data, ArrayList<Movie> list){
         int count = 0;
         try {
             JSONObject mainObject = new JSONObject(data);
-            Movie movie = new Movie(); //New Movie object
-
             JSONArray resArray = mainObject.getJSONArray("results");
 
             while (resArray.length() <= 10){
+                Movie movie = Movie.getInstance(); //New Movie object
                 count++;
                 JSONObject jsonObject = resArray.getJSONObject(count);
 
                 movie.setId(jsonObject.getInt("id"));
-                movie.setVoteAverage(jsonObject.getInt("vote_average"));
+                movie.setVoteAverage(jsonObject.getDouble("vote_average"));
                 movie.setVoteCount(jsonObject.getInt("vote_count"));
                 movie.setOriginalTitle(jsonObject.getString("original_title"));
                 movie.setTitle(jsonObject.getString("title"));

@@ -42,8 +42,8 @@ public class FetchMoviesSearch extends AsyncTask<Void,Void,Void> {
     protected Void doInBackground(Void... voids) {
         try {
             if(NetworkUtils.networkStatus(context)){
-                util.searchMovies = NetworkUtils.fetchDataSearch(util.parametros(search));
-                MovieSearchAdapter adapter = new MovieSearchAdapter(context,util.searchMovies);
+                util.searches = NetworkUtils.fetchDataSearch(util.parametros(search));
+                MovieSearchAdapter adapter = new MovieSearchAdapter(context,util.searches);
                 gridView.setAdapter(adapter);
                 util.mTopTopRatedList = NetworkUtils.fetchData(util.topRatedMovies); //Get top rated movies
             }else{

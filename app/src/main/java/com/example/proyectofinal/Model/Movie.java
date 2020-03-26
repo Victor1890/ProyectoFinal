@@ -15,6 +15,15 @@ public class Movie implements Serializable {
     private String releaseDate;
     private String posterPath;
 
+    private static Movie instance = null;
+
+    public static Movie getInstance() {
+        if(instance == null){
+            instance = new Movie();
+        }
+        return instance;
+    }
+
     public int getId() {
         return id;
     }
