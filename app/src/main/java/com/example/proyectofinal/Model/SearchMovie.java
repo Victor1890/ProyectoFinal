@@ -1,8 +1,9 @@
 package com.example.proyectofinal.Model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class SearchMovie {
+public class SearchMovie implements Serializable {
 
     private double popularity;
     private int vote_count;

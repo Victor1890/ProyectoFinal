@@ -24,7 +24,7 @@ public class Utilidades {
     public ArrayList<SearchMovie> searches = new ArrayList<>();
 
     public String parametros(String _buscar){
-        String buscar = "";
+        String buscar = "https://api.themoviedb.org/3/search/movie?api_key="+API_KEY+"&language=en-US&query="+ _buscar +"&page=1&include_adult=true";
         return buscar;
     }
 

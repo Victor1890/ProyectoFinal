@@ -121,6 +121,7 @@ public class NetworkUtils {
 
             for(int i = 0; i < resArray.length(); i++){
                 JSONObject jsonObject = resArray.getJSONObject(i);
+
                 Reviews reviews = Reviews.getInstance();
 
                 reviews.setAuthor(jsonObject.getString("author"));

@@ -1,8 +1,8 @@
 package com.example.proyectofinal.Model;
 
-import java.util.List;
+import java.io.Serializable;
 
-public class Reviews {
+public class Reviews implements Serializable {
 
     private String author;
     private String content;
