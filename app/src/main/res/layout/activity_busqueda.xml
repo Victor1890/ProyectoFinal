@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#20FFFFFF"
-            android:queryHint="@string/app_name"
+            android:queryHint="Buscar"
             android:scrollbarStyle="insideInset" />
 
     </LinearLayout>

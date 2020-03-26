@@ -43,9 +43,8 @@ public class FetchMoviesSearch extends AsyncTask<Void,Void,Void> {
         try {
             if(NetworkUtils.networkStatus(context)){
                 util.searches = NetworkUtils.fetchDataSearch(util.parametros(search));
-                MovieSearchAdapter adapter = new MovieSearchAdapter(context,util.searches);
-                gridView.setAdapter(adapter);
                 util.mTopTopRatedList = NetworkUtils.fetchData(util.topRatedMovies); //Get top rated movies
+                gridView.setAdapter(new MovieSearchAdapter(context,util.searches));
             }else{
                 Toast.makeText(context,"No Internet Connection",Toast.LENGTH_LONG).show();
             }

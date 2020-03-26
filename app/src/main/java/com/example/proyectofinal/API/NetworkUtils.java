@@ -92,11 +92,12 @@ public class NetworkUtils {
     private static void parseJsonSearch(String data, ArrayList<SearchMovie> list){
         try {
             JSONObject mainObject = new JSONObject(data);
-            SearchMovie searchMovie = new SearchMovie();
             JSONArray resArray = mainObject.getJSONArray("results");
 
             for (int i = 0; i < resArray.length(); i++) {
                 JSONObject jsonObject = resArray.getJSONObject(i);
+
+                SearchMovie searchMovie = SearchMovie.getInstance();
 
                 searchMovie.setPoster_path(jsonObject.getString("poster_path"));
                 searchMovie.setTitle(jsonObject.getString("title"));
@@ -115,11 +116,12 @@ public class NetworkUtils {
         try{
             JSONObject mainObject = new JSONObject(data);
 
-            Reviews reviews = new Reviews();
+
             JSONArray resArray = mainObject.getJSONArray("results");
 
             for(int i = 0; i < resArray.length(); i++){
                 JSONObject jsonObject = resArray.getJSONObject(i);
+                Reviews reviews = Reviews.getInstance();
 
                 reviews.setAuthor(jsonObject.getString("author"));
                 reviews.setContent(jsonObject.getString("content"));
