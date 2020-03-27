@@ -61,9 +61,7 @@ public class NetworkUtils {
             connection.connect();
             InputStream inputStream = connection.getInputStream();
             String result = IOUtils.toString(inputStream);
-
             parseJsonSearch(result, searchMovies);
-
             inputStream.close();
         }
         catch (Exception e){
@@ -95,10 +93,8 @@ public class NetworkUtils {
             JSONArray resArray = mainObject.getJSONArray("results");
 
             for (int i = 0; i < resArray.length(); i++) {
+                SearchMovie searchMovie = new SearchMovie();
                 JSONObject jsonObject = resArray.getJSONObject(i);
-
-                SearchMovie searchMovie = SearchMovie.getInstance();
-
                 searchMovie.setPoster_path(jsonObject.getString("poster_path"));
                 searchMovie.setTitle(jsonObject.getString("title"));
                 searchMovie.setVote_average(jsonObject.getDouble("vote_average"));
@@ -122,13 +118,11 @@ public class NetworkUtils {
             for(int i = 0; i < resArray.length(); i++){
                 JSONObject jsonObject = resArray.getJSONObject(i);
 
-                Reviews reviews = Reviews.getInstance();
-
+                Reviews reviews =new Reviews();
                 reviews.setAuthor(jsonObject.getString("author"));
                 reviews.setContent(jsonObject.getString("content"));
                 reviews.setId(jsonObject.getString("id"));
                 reviews.setUrl(jsonObject.getString("url"));
-
                 list.add(reviews);
             }
         }

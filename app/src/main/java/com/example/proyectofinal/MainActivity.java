@@ -3,6 +3,7 @@ package com.example.proyectofinal;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,13 +33,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_main);
-        mProgressBar = findViewById(R.id.indeterminateBar);
-        pelis = findViewById(R.id.pop_movies_grid);
         ButterKnife.bind(MainActivity.this);
         mProgressBar.setVisibility(View.INVISIBLE);
 
-        FetchMovies FM = new FetchMovies(MainActivity.this,mProgressBar,pelis);
-        FM.execute();
+         new FetchMovies(MainActivity.this,mProgressBar,pelis).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
 
         pelis.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

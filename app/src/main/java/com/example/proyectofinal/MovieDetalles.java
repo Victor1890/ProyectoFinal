@@ -101,14 +101,14 @@ public class MovieDetalles extends AppCompatActivity {
 
         @Override
         public View getView(int position, View view, ViewGroup viewGroup) {
-            View v = getLayoutInflater().inflate(R.layout.reviews, null);
-            TextView author = findViewById(R.id.author);
+           // View v = getLayoutInflater().inflate(R.layout., null);
+            //TextView author = findViewById(R.id.author);
             TextView content = findViewById(R.id.content);
             Reviews reviews = (Reviews) getItem(position);
 
            // author.setText(reviews.getAuthor());
             //content.setText(reviews.getContent());
-            return v;
+            return null;
         }
     }
 
