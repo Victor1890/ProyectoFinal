@@ -44,21 +44,21 @@ public class MovieDetalles extends AppCompatActivity {
         ListView rev = findViewById(R.id.listaderev);
         Movie mov_intent = (Movie) intenrecibe.getSerializableExtra("detalles");
         //MovieTrailer mov_trailer = (MovieTrailer) intenrecibe.getSerializableExtra("trailer");
-         AsyncTask<Void,Void,Void> task = new AsyncTask<Void, Void, Void>() {
+        AsyncTask<Void,Void,Void> task = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                try {
-                    if (NetworkUtils.networkStatus(MovieDetalles.this)) {
-                        util.mReviews = NetworkUtils.fetchDataReviews("https://api.themoviedb.org/3/movie/" + mov_intent.getId() + "/reviews?api_key=54ab07c73593d2ae04ed17bde50c990a");
-                            ReviewAdapter adapter = new ReviewAdapter(MovieDetalles.this,util.mReviews);
-                            rev.setAdapter(adapter);
-                     }else {
-                        Toast.makeText(MovieDetalles.this,"No conexión a internet",Toast.LENGTH_LONG).show();
-                    }
-                } catch (Exception e){
-                    doInBackground(voids);
+            try {
+                if (NetworkUtils.networkStatus(MovieDetalles.this)) {
+                    util.mReviews = NetworkUtils.fetchDataReviews("https://api.themoviedb.org/3/movie/" + mov_intent.getId() + "/reviews?api_key=54ab07c73593d2ae04ed17bde50c990a");
+                        ReviewAdapter adapter = new ReviewAdapter(MovieDetalles.this,util.mReviews);
+                        rev.setAdapter(adapter);
+                 }else {
+                    Toast.makeText(MovieDetalles.this,"No conexión a internet",Toast.LENGTH_LONG).show();
                 }
-               return null;
+            } catch (Exception e){
+                doInBackground(voids);
+            }
+           return null;
             }
         };
         task.execute();
@@ -73,7 +73,7 @@ public class MovieDetalles extends AppCompatActivity {
         Double Rating = mov_intent.getVoteAverage();
         title.setText(mov_intent.getTitle());
         sinopsis.setText(mov_intent.getOverview());
-        rating.setText(Rating +"/10");
+        rating.setText(" " + Rating +"/10");
 
 
     }
