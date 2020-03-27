@@ -27,8 +27,8 @@
 
             <TextView
                 android:id="@+id/MovieName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="223dp"
+                android:layout_height="188dp"
                 android:gravity="center"
                 android:textColor="@color/colorWhite"
                 android:textSize="24sp"
@@ -66,7 +66,8 @@
             <ListView
                 android:id="@+id/listaderev"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:cacheColorHint="#FFFFFF" />
 
         </LinearLayout>
 

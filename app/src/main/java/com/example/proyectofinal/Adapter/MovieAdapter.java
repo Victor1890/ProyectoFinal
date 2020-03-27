@@ -53,7 +53,7 @@ public class MovieAdapter extends BaseAdapter{
             imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setAdjustViewBounds(true);
-            imageView.setPadding(3,3,3,3);
+            imageView.setPadding(5,5,5,5);
             relativeLayout.addView(imageView);
         } else {
             imageView = (ImageView) convertView;

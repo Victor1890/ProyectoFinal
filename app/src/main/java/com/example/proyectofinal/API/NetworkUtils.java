@@ -139,16 +139,14 @@ public class NetworkUtils {
     }
 
     private static void parseJson(String data, ArrayList<Movie> list){
-        int count = 0;
+
         try {
             JSONObject mainObject = new JSONObject(data);
             JSONArray resArray = mainObject.getJSONArray("results");
 
-            while (resArray.length() <= 10){
-                Movie movie = Movie.getInstance(); //New Movie object
-                count++;
+           for (int count = 0; count < resArray.length() ; count++){
+                Movie movie = new Movie();
                 JSONObject jsonObject = resArray.getJSONObject(count);
-
                 movie.setId(jsonObject.getInt("id"));
                 movie.setVoteAverage(jsonObject.getDouble("vote_average"));
                 movie.setVoteCount(jsonObject.getInt("vote_count"));

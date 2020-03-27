@@ -106,7 +106,7 @@ public class MovieDetalles extends AppCompatActivity {
             TextView content = findViewById(R.id.content);
             Reviews reviews = (Reviews) getItem(position);
 
-            author.setText(reviews.getAuthor());
+           // author.setText(reviews.getAuthor());
             //content.setText(reviews.getContent());
             return v;
         }
