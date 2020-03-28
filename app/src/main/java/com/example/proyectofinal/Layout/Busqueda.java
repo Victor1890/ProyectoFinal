@@ -38,9 +38,9 @@ public class Busqueda extends AppCompatActivity {
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String s) {
-                if(!s.isEmpty()){
-                    FetchMoviesSearch FM = new FetchMoviesSearch(Busqueda.this, indeterminateBar1,gridView,s);
+            public boolean onQueryTextSubmit(String search) {
+                if(!search.isEmpty()){
+                    FetchMoviesSearch FM = new FetchMoviesSearch(Busqueda.this, indeterminateBar1,gridView,search);
                     FM.execute();
                 }
                 else {

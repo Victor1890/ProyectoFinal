@@ -43,15 +43,14 @@ public class MovieDetalles extends AppCompatActivity {
         Intent intenrecibe = getIntent();
         ListView rev = findViewById(R.id.listaderev);
         Movie mov_intent = (Movie) intenrecibe.getSerializableExtra("detalles");
-        //MovieTrailer mov_trailer = (MovieTrailer) intenrecibe.getSerializableExtra("trailer");
         AsyncTask<Void,Void,Void> task = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
             try {
                 if (NetworkUtils.networkStatus(MovieDetalles.this)) {
                     util.mReviews = NetworkUtils.fetchDataReviews("https://api.themoviedb.org/3/movie/" + mov_intent.getId() + "/reviews?api_key=54ab07c73593d2ae04ed17bde50c990a");
-                        ReviewAdapter adapter = new ReviewAdapter(MovieDetalles.this,util.mReviews);
-                        rev.setAdapter(adapter);
+                    ReviewAdapter adapter = new ReviewAdapter(MovieDetalles.this,util.mReviews);
+                    rev.setAdapter(adapter);
                  }else {
                     Toast.makeText(MovieDetalles.this,"No conexión a internet",Toast.LENGTH_LONG).show();
                 }
@@ -106,7 +105,7 @@ public class MovieDetalles extends AppCompatActivity {
             TextView content = findViewById(R.id.content);
             Reviews reviews = (Reviews) getItem(position);
 
-           // author.setText(reviews.getAuthor());
+            author.setText(reviews.getAuthor());
             //content.setText(reviews.getContent());
             return v;
         }
