@@ -11,7 +11,6 @@ import android.widget.ProgressBar;
 import com.example.proyectofinal.API.FetchMovies;
 import com.example.proyectofinal.API.Utilidades;
 import com.example.proyectofinal.Layout.Busqueda;
-import com.example.proyectofinal.Layout.MoviePages;
 import com.example.proyectofinal.Model.Movie;
 
 
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(MainActivity.this);
         mProgressBar.setVisibility(View.INVISIBLE);
 
-        FetchMovies FM = new FetchMovies(MainActivity.this,mProgressBar,pelis);
+        FetchMovies FM = FetchMovies.getInstance(MainActivity.this, mProgressBar, pelis);
         FM.execute();
 
         pelis.setOnItemClickListener(new AdapterView.OnItemClickListener() {

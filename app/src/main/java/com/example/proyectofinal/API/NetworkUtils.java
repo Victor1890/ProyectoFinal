@@ -145,7 +145,9 @@ public class NetworkUtils {
             JSONArray resArray = mainObject.getJSONArray("results");
 
            for (int count = 0; count < resArray.length() ; count++){
-                Movie movie = new Movie();
+
+                Movie movie = Movie.getInstance();
+
                 JSONObject jsonObject = resArray.getJSONObject(count);
                 movie.setId(jsonObject.getInt("id"));
                 movie.setVoteAverage(jsonObject.getDouble("vote_average"));

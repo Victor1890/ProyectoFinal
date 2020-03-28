@@ -19,7 +19,16 @@ public class FetchMovies extends AsyncTask<Void,Void,Void> {
     private Context context;
     private GridView gridView;
 
-    public FetchMovies(Context context, ProgressBar progressBar, GridView gridView) {
+    private static FetchMovies instance = null;
+
+    public static FetchMovies getInstance(Context context, ProgressBar progressBar, GridView gridView) {
+        if(instance == null){
+            instance = new FetchMovies(context, progressBar, gridView);
+        }
+        return instance;
+    }
+
+    private FetchMovies(Context context, ProgressBar progressBar, GridView gridView) {
         this.progressBar = progressBar;
         this.context = context;
         this.gridView = gridView;
@@ -43,7 +52,8 @@ public class FetchMovies extends AsyncTask<Void,Void,Void> {
             if(NetworkUtils.networkStatus(context)){
                 util.mPopularList = NetworkUtils.fetchData(util.popularMovies);
                 util.mTopTopRatedList = NetworkUtils.fetchData(util.topRatedMovies);
-                gridView.setAdapter(new MovieAdapter(context,util.mPopularList));
+                MovieAdapter movieAdapter = MovieAdapter.getInstance(context, util.mPopularList);
+                gridView.setAdapter(movieAdapter);
             }else{
                 Toast.makeText(context,"No conexión a internet",Toast.LENGTH_LONG).show();
             }

@@ -16,12 +16,21 @@ import java.util.List;
 
 public class MovieSearchAdapter extends BaseAdapter {
 
-    public static final String MOVIE_BASE_URL="https://image.tmdb.org/t/p/w185";
+    private static MovieSearchAdapter instance = null;
+
+
     private Utilidades util = Utilidades.getInstance();
     private List<SearchMovie> list;
     private Context context;
 
-    public MovieSearchAdapter(Context context,List<SearchMovie> list) {
+    public static MovieSearchAdapter getInstance(Context context, List<SearchMovie> list) {
+        if(instance == null){
+            instance = new MovieSearchAdapter(context, list);
+        }
+        return instance;
+    }
+
+    private MovieSearchAdapter(Context context, List<SearchMovie> list) {
         this.list = list;
         this.context = context;
     }
@@ -48,7 +57,6 @@ public class MovieSearchAdapter extends BaseAdapter {
         RelativeLayout relativeLayout = new RelativeLayout(context);
         relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(100, 200));
         if (view == null) {
-            // if it's not recycled, initialize some attributes
             imageView = new ImageView(context);
             imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -59,7 +67,7 @@ public class MovieSearchAdapter extends BaseAdapter {
         }
 
         //load data into the ImageView using Picasso
-        Picasso.get().load(MOVIE_BASE_URL + searchMovie.getPoster_path())
+        Picasso.get().load(util.MOVIE_BASE_URL_2 + searchMovie.getPoster_path())
                 .placeholder(R.drawable.image_placeholder)
                 .into(imageView);
         return imageView;

@@ -12,7 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Layout.MoviePages"></activity>
         <activity android:name=".Layout.Busqueda" />
         <activity android:name=".MovieDetalles" />
         <activity android:name=".MainActivity">

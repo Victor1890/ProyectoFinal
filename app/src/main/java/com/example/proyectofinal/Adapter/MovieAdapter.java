@@ -18,11 +18,19 @@ import java.util.ArrayList;
 public class MovieAdapter extends BaseAdapter{
 
     private Utilidades util = Utilidades.getInstance();
-
     private Context mContext;
     public ArrayList<Movie> list;
 
-    public MovieAdapter(Context context, ArrayList<Movie> movieList) {
+    private static MovieAdapter instance = null;
+
+    public static MovieAdapter getInstance(Context context, ArrayList<Movie> list) {
+        if(instance == null){
+            instance = new MovieAdapter(context, list);
+        }
+        return instance;
+    }
+
+    private MovieAdapter(Context context, ArrayList<Movie> movieList) {
         this.mContext = context;
         this.list = movieList;
     }
@@ -58,7 +66,7 @@ public class MovieAdapter extends BaseAdapter{
         } else {
             imageView = (ImageView) convertView;
         }
-        Picasso.get().load(util.MOVIE_BASE_URL + movies.getPosterPath())
+        Picasso.get().load(util.MOVIE_BASE_URL_1 + movies.getPosterPath())
                 .placeholder(R.drawable.image_placeholder)
                 .into(imageView);
         return imageView;
