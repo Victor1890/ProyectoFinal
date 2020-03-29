@@ -30,7 +30,7 @@ public class MovieAdapter extends BaseAdapter{
         return instance;
     }
 
-    private MovieAdapter(Context context, ArrayList<Movie> movieList) {
+    public MovieAdapter(Context context, ArrayList<Movie> movieList) {
         this.mContext = context;
         this.list = movieList;
     }

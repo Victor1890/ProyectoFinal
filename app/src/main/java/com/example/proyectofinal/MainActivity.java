@@ -1,7 +1,5 @@
 package com.example.proyectofinal;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,12 +7,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.proyectofinal.API.FetchMovies;
 import com.example.proyectofinal.API.Utilidades;
 import com.example.proyectofinal.Layout.Busqueda;
-import com.example.proyectofinal.Layout.MoviePages;
 import com.example.proyectofinal.Model.Movie;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

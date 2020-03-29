@@ -140,7 +140,7 @@ public class NetworkUtils {
 
            for (int count = 0; count < resArray.length() ; count++){
 
-                Movie movie = Movie.getInstance();
+                Movie movie = new Movie();
 
                 JSONObject jsonObject = resArray.getJSONObject(count);
                 movie.setId(jsonObject.getInt("id"));

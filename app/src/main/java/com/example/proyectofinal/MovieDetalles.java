@@ -4,11 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,14 +15,11 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectofinal.API.NetworkUtils;
 import com.example.proyectofinal.API.Utilidades;
 import com.example.proyectofinal.Model.Movie;
-import com.example.proyectofinal.Model.MovieTrailer;
 import com.example.proyectofinal.Model.Reviews;
-import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -42,6 +38,7 @@ public class MovieDetalles extends AppCompatActivity {
         setContentView(R.layout.card_popular_items);
         Intent intenrecibe = getIntent();
         ListView rev = findViewById(R.id.listaderev);
+        rev.setFocusable(false);
         Movie mov_intent = (Movie) intenrecibe.getSerializableExtra("detalles");
         AsyncTask<Void,Void,Void> task = new AsyncTask<Void, Void, Void>() {
             @Override
@@ -100,14 +97,19 @@ public class MovieDetalles extends AppCompatActivity {
 
         @Override
         public View getView(int position, View view, ViewGroup viewGroup) {
-           // View v = getLayoutInflater().inflate(R.layout., null);
-            //TextView author = findViewById(R.id.author);
-            TextView content = findViewById(R.id.content);
+            LayoutInflater inflater = LayoutInflater.from(contexto);
+            View v = inflater.inflate(R.layout.review,null);
+            TextView author = v.findViewById(R.id.Autor);
+            TextView content = v.findViewById(R.id.Contenido);
             Reviews reviews = (Reviews) getItem(position);
-
-            author.setText(reviews.getAuthor());
-            //content.setText(reviews.getContent());
-            return null;
+            if (!reviews.getAuthor().equals(" ")) {
+                author.setText(reviews.getAuthor());
+                content.setText(reviews.getContent());
+                return v;
+            }else{
+               Toast.makeText(MovieDetalles.this,"Lo siento, esta pelicula no posee ninguna reseña, estamos trabajando para añadir mas...",Toast.LENGTH_LONG).show();
+                return null;
+            }
         }
     }
 

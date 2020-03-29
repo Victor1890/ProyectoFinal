@@ -63,11 +63,20 @@
                 android:textSize="15sp"
                 tools:text="Synopsis" />
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reseñas"
+                android:textColor="@color/colorWhite"
+                android:textSize="30sp" />
+
             <ListView
                 android:id="@+id/listaderev"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:cacheColorHint="#FFFFFF" />
+                android:cacheColorHint="#FFFFFF"
+                android:divider="@android:drawable/divider_horizontal_textfield" />
 
         </LinearLayout>
 
