@@ -20,11 +20,11 @@ public class FetchMovies extends AsyncTask<Void,Void,Void> {
     private ProgressBar progressBar;
     private Context context;
     private GridView gridView;
+
     public FetchMovies(Context context, ProgressBar progressBar, GridView gridView) {
         this.progressBar = progressBar;
         this.context = context;
         this.gridView = gridView;
-
     }
 
     @Override
@@ -58,5 +58,4 @@ public class FetchMovies extends AsyncTask<Void,Void,Void> {
         gridView.setAdapter(adapter);
         progressBar.setVisibility(View.INVISIBLE);
     }
-
 }

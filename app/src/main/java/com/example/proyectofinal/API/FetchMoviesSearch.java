@@ -36,16 +36,18 @@ public class FetchMoviesSearch extends AsyncTask<Void,Void,Void> {
         super.onPostExecute(aVoid);
         progressBar.setVisibility(View.INVISIBLE);
         gridView.setVisibility(View.INVISIBLE);
+
+        MovieSearchAdapter searchAdapter = MovieSearchAdapter.getInstance(context, util.searches);
+        gridView.setAdapter(searchAdapter);
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
         try {
+            Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
             if(NetworkUtils.networkStatus(context)){
                 util.searches = NetworkUtils.fetchDataSearch(util.parametros(search));
                 util.mTopTopRatedList = NetworkUtils.fetchData(util.topRatedMovies);
-                MovieSearchAdapter searchAdapter = MovieSearchAdapter.getInstance(context, util.searches);
-                gridView.setAdapter(searchAdapter);
             }else{
                 Toast.makeText(context,"No Internet Connection",Toast.LENGTH_LONG).show();
             }

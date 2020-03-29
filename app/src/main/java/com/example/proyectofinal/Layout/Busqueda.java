@@ -3,6 +3,7 @@ package com.example.proyectofinal.Layout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,8 +41,7 @@ public class Busqueda extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String search) {
                 if(!search.isEmpty()){
-                    FetchMoviesSearch FM = new FetchMoviesSearch(Busqueda.this, indeterminateBar1,gridView,search);
-                    FM.execute();
+                    new FetchMoviesSearch(Busqueda.this,indeterminateBar1,gridView,search).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "El campo no puede estar Vacio!",Toast.LENGTH_LONG).show();
