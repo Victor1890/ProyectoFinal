@@ -47,7 +47,6 @@ public class FetchMoviesSearch extends AsyncTask<Void,Void,Void> {
             Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
             if(NetworkUtils.networkStatus(context)){
                 util.searches = NetworkUtils.fetchDataSearch(util.parametros(search));
-                util.mTopTopRatedList = NetworkUtils.fetchData(util.topRatedMovies);
             }else{
                 Toast.makeText(context,"No Internet Connection",Toast.LENGTH_LONG).show();
             }
