@@ -20,15 +20,6 @@ public class SearchMovie implements Serializable {
     private String release_date;
     private List<Integer> genre_ids;
 
-    private static SearchMovie instance = null;
-
-    public static SearchMovie getInstance() {
-        if(instance == null){
-            instance = new SearchMovie();
-        }
-        return instance;
-    }
-
     public double getPopularity() {
         return popularity;
     }

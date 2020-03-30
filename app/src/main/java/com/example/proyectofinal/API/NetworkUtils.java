@@ -96,6 +96,7 @@ public class NetworkUtils {
                 SearchMovie searchMovie = new SearchMovie();
                 JSONObject jsonObject = resArray.getJSONObject(i);
                 searchMovie.setPoster_path(jsonObject.getString("poster_path"));
+                searchMovie.setBackdrop_path(jsonObject.getString("backdrop_path"));
                 searchMovie.setTitle(jsonObject.getString("title"));
                 searchMovie.setVote_average(jsonObject.getDouble("vote_average"));
                 searchMovie.setId(jsonObject.getInt("id"));
@@ -111,8 +112,6 @@ public class NetworkUtils {
     private static void parseJsonReviews(String data, ArrayList<Reviews> list){
         try{
             JSONObject mainObject = new JSONObject(data);
-
-
             JSONArray resArray = mainObject.getJSONArray("results");
 
             for(int i = 0; i < resArray.length(); i++){

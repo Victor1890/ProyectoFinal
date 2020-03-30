@@ -20,11 +20,13 @@ import com.example.proyectofinal.API.NetworkUtils;
 import com.example.proyectofinal.API.Utilidades;
 import com.example.proyectofinal.Model.Movie;
 import com.example.proyectofinal.Model.Reviews;
+import com.example.proyectofinal.Model.SearchMovie;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class MovieDetalles extends AppCompatActivity {
+
     private static final String TAG = MovieDetalles.class.getSimpleName();
     public static final String BASE_URL = "https://image.tmdb.org/t/p/w500";
     Utilidades util = Utilidades.getInstance();
@@ -40,6 +42,7 @@ public class MovieDetalles extends AppCompatActivity {
         ListView rev = findViewById(R.id.listaderev);
         rev.setFocusable(false);
         Movie mov_intent = (Movie) intenrecibe.getSerializableExtra("detalles");
+        SearchMovie search_intent = (SearchMovie) intenrecibe.getSerializableExtra("detalles_search");
         AsyncTask<Void,Void,Void> task = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {

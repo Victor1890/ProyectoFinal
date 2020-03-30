@@ -16,21 +16,11 @@ import java.util.List;
 
 public class MovieSearchAdapter extends BaseAdapter {
 
-    private static MovieSearchAdapter instance = null;
-
-
     private Utilidades util = Utilidades.getInstance();
     private List<SearchMovie> list;
     private Context context;
 
-    public static MovieSearchAdapter getInstance(Context context, List<SearchMovie> list) {
-        if(instance == null){
-            instance = new MovieSearchAdapter(context, list);
-        }
-        return instance;
-    }
-
-    private MovieSearchAdapter(Context context, List<SearchMovie> list) {
+    public MovieSearchAdapter(Context context, List<SearchMovie> list) {
         this.list = list;
         this.context = context;
     }
@@ -55,12 +45,13 @@ public class MovieSearchAdapter extends BaseAdapter {
         ImageView imageView = null;
         SearchMovie searchMovie = (SearchMovie) getItem(position);
         RelativeLayout relativeLayout = new RelativeLayout(context);
-        relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(100, 200));
+        relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(200, 200));
         if (view == null) {
             imageView = new ImageView(context);
             imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setAdjustViewBounds(true);
+            imageView.setPadding(5,5,5,5);
             relativeLayout.addView(imageView);
         } else {
             imageView = (ImageView) view;

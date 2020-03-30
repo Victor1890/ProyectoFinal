@@ -35,9 +35,9 @@ public class FetchMoviesSearch extends AsyncTask<Void,Void,Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         progressBar.setVisibility(View.INVISIBLE);
-        gridView.setVisibility(View.INVISIBLE);
+        gridView.setVisibility(View.VISIBLE);
 
-        MovieSearchAdapter searchAdapter = MovieSearchAdapter.getInstance(context, util.searches);
+        MovieSearchAdapter searchAdapter = new MovieSearchAdapter(context, util.searches);
         gridView.setAdapter(searchAdapter);
     }
 
