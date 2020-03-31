@@ -14,10 +14,8 @@ import android.widget.Toast;
 
 import com.example.proyectofinal.API.FetchMoviesSearch;
 import com.example.proyectofinal.Model.SearchMovie;
-import com.example.proyectofinal.MovieDetalles;
+import com.example.proyectofinal.MovieDetalle2;
 import com.example.proyectofinal.R;
-
-import java.io.Serializable;
 
 public class Busqueda extends AppCompatActivity {
 
@@ -59,7 +57,7 @@ public class Busqueda extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 SearchMovie searchMovie = (SearchMovie) adapterView.getAdapter().getItem(position);
-                Intent intent = new Intent(Busqueda.this, MovieDetalles.class);
+                Intent intent = new Intent(Busqueda.this, MovieDetalle2.class);
                 intent.putExtra("detalles_search", searchMovie);
                 startActivity(intent);
             }

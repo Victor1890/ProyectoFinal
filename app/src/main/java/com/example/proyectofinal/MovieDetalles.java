@@ -27,8 +27,6 @@ import java.util.ArrayList;
 
 public class MovieDetalles extends AppCompatActivity {
 
-    private static final String TAG = MovieDetalles.class.getSimpleName();
-    public static final String BASE_URL = "https://image.tmdb.org/t/p/w500";
     Utilidades util = Utilidades.getInstance();
     TextView title, sinopsis, rating;
     ImageView photo;
@@ -64,7 +62,7 @@ public class MovieDetalles extends AppCompatActivity {
 
         photo = findViewById(R.id.photo);
 
-        Picasso.get().load(BASE_URL + mov_intent.getPosterPath()).into(photo);
+        Picasso.get().load(util.MOVIE_BASE_URL_1 + mov_intent.getPosterPath()).into(photo);
 
         title = findViewById(R.id.MovieName);
         sinopsis = findViewById(R.id.sinopsis);
