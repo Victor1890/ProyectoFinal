@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.example.proyectofinal.API.FetchMoviesSearch;
 import com.example.proyectofinal.Model.SearchMovie;
-import com.example.proyectofinal.MovieDetalle2;
 import com.example.proyectofinal.R;
 
 public class Busqueda extends AppCompatActivity {
